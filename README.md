@@ -1,40 +1,32 @@
-# Arquitetura de Referência: Sistema de Medição e Afretamento de Sondas (Oil & Gas)
+# 🏛️ Architecture & Decision Log (ADL)
 
-Este projeto documenta a arquitetura de referência para um sistema de **Gestão de Medição Contratual**, focado no cenário de afretamento de sondas de perfuração (Rigs).
+Bem-vindo ao meu repositório de **Análises Arquiteturais e Padrões de Design**.
 
-O objetivo da solução é automatizar o cálculo de pagamentos baseados em performance (Uptime/Downtime), aplicando regras contratuais complexas e integrando dados de terceiros com o ERP corporativo.
+Este repositório atua como um *Knowledge Base* demonstrando minha abordagem para resolver problemas complexos de software em ambientes corporativos (Enterprise). Aqui documento não apenas o "como" (código), mas principalmente o "porquê" (decisões, trade-offs e estratégias).
 
-## 🏗️ O Desafio de Negócio
-* **Complexidade:** Contratos de afretamento possuem cláusulas variáveis de penalidade por *Downtime*.
-* **Integração:** Necessidade de ingerir Boletins Diários de Perfuração (BDP/DDR) vindos de fornecedores externos.
-* **Compliance:** Todo cálculo precisa ser auditável e integrado ao sistema financeiro legado (ERP).
+## 🎯 Objetivo
+Demonstrar a aplicação prática de padrões de arquitetura para resolver requisitos não-funcionais críticos, como:
+* **Alta Disponibilidade & Resiliência** (Circuit Breakers, Queues, Fallbacks).
+* **Integração com Legado** (ACL, Strangler Fig).
+* **Escalabilidade** (Event-Driven Architecture, Caching Strategies).
+* **Observabilidade** (Distributed Tracing, Health Checks).
 
-## 📐 Desenho da Solução (C4 Model - Container View)
+## 📚 Catálogo de Projetos (Case Studies)
 
-A arquitetura utiliza uma abordagem **Event-Driven** para desacoplar a ingestão de dados (Sondas) do motor de cálculo financeiro, garantindo que o sistema legado não gargale a operação.
+Abaixo estão listados os estudos de caso e desenhos de solução contidos neste repositório. Cada projeto representa um cenário de negócio distinto com desafios técnicos específicos.
 
-```mermaid
-graph TD
-    Fornecedor[API Fornecedor / Sonda] -->|HTTPS - JSON| WAF[AWS WAF]
-    WAF --> Gateway[Amazon API Gateway]
-    
-    subgraph "Camada de Ingestão (Decoupling)"
-        Gateway -->|Validate & Push| SQS_In[Amazon SQS - Fila de Medições]
-    end
+| Projeto | Cenário de Negócio | Padrões Chave | Stack |
+| :--- | :--- | :--- | :--- |
+| **[📂 01. Heavy Machinery Telemetry](./projects/01-telemetry-billing/README.md)** | Processamento de alta volumetria de dados IoT para faturamento contratual. | *Event-Driven, Anti-Corruption Layer (ACL), Decoupling* | .NET 8, AWS SQS, Oracle, Redis |
+| **[📂 02. Legacy Modernization](./projects/02-legacy-modernization/README.md)** | Estratégia de migração gradual de monólito legado sem downtime. | *Strangler Fig, Reverse Proxy, BFF (Backend for Frontend)* | AWS ALB, YARP, .NET Framework |
 
-    subgraph "Core Domain - Motor de Medição (.NET)"
-        SQS_In -->|Consume| Worker[Measurement Worker .NET 8]
-        Worker -->|Get Rules| Cache[ElastiCache Redis]
-        Worker -->|Persist Calculation| Oracle[(Oracle DB - Contratos)]
-    end
+---
 
-    subgraph "Integração Legado (Anti-Corruption Layer)"
-        Worker -->|Event: MedicaoCalculada| SNS[Amazon SNS]
-        SNS -->|Sub| ACL[ACL Service .NET]
-        ACL -->|SOAP/RFC| ERP[ERP Corporativo / SAP]
-    end
+## 🛠️ Ferramentas & Metodologias
+Utilizo as seguintes abordagens para documentação e desenho:
+* **C4 Model:** Para visualização em diferentes níveis de abstração (Context, Container, Component).
+* **ADR (Architecture Decision Records):** Para registrar o contexto das escolhas técnicas.
+* **Mermaid.js:** Para diagramas como código (Diagrams as Code).
 
-    subgraph "Observabilidade"
-        Worker -->|Logs/Traces| CloudWatch[Amazon CloudWatch]
-    end
-```
+---
+*Disclaimer: Os projetos aqui apresentados são cenários de referência baseados em padrões de mercado. Quaisquer semelhanças com sistemas reais são coincidências ou abstrações genéricas para fins educacionais.*
