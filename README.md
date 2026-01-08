@@ -17,8 +17,10 @@ Abaixo estão listados os estudos de caso e desenhos de solução contidos neste
 
 | Projeto | Cenário de Negócio | Padrões Chave | Stack |
 | :--- | :--- | :--- | :--- |
-| **[📂 01. Heavy Machinery Telemetry](./projects/01-telemetry-billing/README.md)** | Processamento de alta volumetria de dados IoT para faturamento contratual. | *Event-Driven, Anti-Corruption Layer (ACL), Decoupling* | .NET 8, AWS SQS, Oracle, Redis |
-| **[📂 02. Legacy Modernization](./projects/02-legacy-modernization/README.md)** | Estratégia de migração gradual de monólito legado sem downtime. | *Strangler Fig, Reverse Proxy, BFF (Backend for Frontend)* | AWS ALB, YARP, .NET Framework |
+| **[📂 01. Telemetry Billing](./projects/01-telemetry-billing/README.md)** | Processamento de alta volumetria de dados IoT para faturamento contratual. | *Event-Driven, Anti-Corruption Layer (ACL), Decoupling* | .NET 8, AWS SQS, Oracle, Redis |
+| **[📂 02. Financial Reconciliation](./projects/02-financial-reconciliation/README.md)** | Conciliação de 2 milhões de transações diárias com arquivos bancários. | *Batch Processing, Idempotency, Event-Driven* | .NET, AWS S3, SFTP |
+| **[📂 03. Inventory Reservation](./projects/03-inventory-reservation/README.md)** | Controle de estoque em alta concorrência durante Black Friday. | *Distributed Locking, TTL, Cache-Aside* | Redis, PostgreSQL |
+| **[📂 04. Secure Telemedicine](./projects/04-secure-telemedicine/README.md)** | Plataforma de telemedicina com segurança e auditoria. | *Encryption at Rest, Signed URLs, Audit Log* | .NET, AWS S3, KMS |
 
 ---
 
