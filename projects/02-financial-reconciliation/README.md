@@ -19,3 +19,11 @@ Uma Fintech de meios de pagamento processa cerca de **2 milhões de transações
 * Qual estratégia de processamento usar? (Batch, Stream, Event-Driven?)
 * Como garantir que a leitura dos arquivos não derrube o banco de dados da operação online?
 * Como lidar com a idempotência (evitar processar o mesmo arquivo duas vezes)?
+
+---
+
+## 💡 Solução Arquitetural
+
+**[📖 Ver Solução Completa →](./SOLUTION.md)**
+
+A solução proposta utiliza uma arquitetura **Event-Driven** combinada com **Batch Processing**, aplicando padrões como CQRS, Idempotent Consumer, e Chunk Processing para resolver todos os requisitos.

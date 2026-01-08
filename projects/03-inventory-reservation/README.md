@@ -17,3 +17,11 @@ Um grande varejista está se preparando para a Black Friday. O produto estrela s
 * Como controlar o travamento (Locking) do registro no banco de dados sem deixar o sistema lento?
 * Vale a pena usar Banco Relacional ou NoSQL (Key-Value) para controlar o contador?
 * Como implementar o mecanismo de TTL (Time-to-Live) para carrinhos abandonados?
+
+---
+
+## 💡 Solução Arquitetural
+
+**[📖 Ver Solução Completa →](./SOLUTION.md)**
+
+A solução proposta utiliza **Redis** como store de reservas com operações atômicas (DECR), **TTL nativo** para expiração automática, e **Circuit Breaker** para resiliência, garantindo zero overselling com latência < 50ms.
